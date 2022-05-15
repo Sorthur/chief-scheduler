@@ -5,6 +5,7 @@ namespace chief_schedule.Domain.Entities;
 
 public class Project : AuditableEntity
 {
+    public Guid Id { get; set; }
     public ApplicationUser? Manager { get; set; }
     [MaxLength(50)]
     public string? Name { get; set; }
