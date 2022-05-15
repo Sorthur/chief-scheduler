@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace chief_schedule.Domain.Entities;
 
-public class Task : AuditableEntity
+public class ProjectTask : AuditableEntity
 {
     public Guid Id { get; set; }
     public Project Project { get; set; }

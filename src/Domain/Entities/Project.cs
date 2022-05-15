@@ -11,7 +11,7 @@ public class Project : AuditableEntity
     [MaxLength(500)]
     public string? Description { get; set; }
     public int TargetNumberOfHours { get; set; }
-    public ICollection<Task> Tasks { get; set; }
+    public ICollection<ProjectTask> Tasks { get; set; }
     public ICollection<ApplicationUser> Workers { get; set; }
     public ICollection<Note> Notes { get; set; }
 }
