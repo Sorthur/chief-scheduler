@@ -6,9 +6,9 @@ namespace chief_schedule.Domain.Entities;
 public class ApplicationUser : IdentityUser, IAuditableEntity
 {
     [MaxLength(100)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     [MaxLength(100)]
-    public string Surname { get; set; }
+    public string? Surname { get; set; }
     
     public DateTime Created { get; set; }
     public string? CreatedBy { get; set; }
