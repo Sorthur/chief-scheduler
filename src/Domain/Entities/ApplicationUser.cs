@@ -9,6 +9,8 @@ public class ApplicationUser : IdentityUser, IAuditableEntity
     public string? Name { get; set; }
     [MaxLength(100)]
     public string? Surname { get; set; }
+
+    public ICollection<Project>? Projects { get; set; }
     
     public DateTime Created { get; set; }
     public string? CreatedBy { get; set; }
