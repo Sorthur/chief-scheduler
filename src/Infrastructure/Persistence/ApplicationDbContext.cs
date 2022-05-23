@@ -2,7 +2,6 @@
 using chief_schedule.Application.Common.Interfaces;
 using chief_schedule.Domain.Common;
 using chief_schedule.Domain.Entities;
-using chief_schedule.Infrastructure.Identity;
 using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
