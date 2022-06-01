@@ -1,5 +1,6 @@
 ﻿using chief_schedule.Application.Common.Interfaces;
 using chief_schedule.Application.Common.Models;
+using chief_schedule.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

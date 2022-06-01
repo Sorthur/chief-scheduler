@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace chief_schedule.Domain.Common;
 
-public abstract class AuditableEntity
+public interface IAuditableEntity
 {
     public DateTime Created { get; set; }
     [MaxLength(100)]
