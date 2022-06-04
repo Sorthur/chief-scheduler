@@ -25,7 +25,8 @@ public static class DependencyInjection
         else
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
+                // options.UseNpgsql(
+                options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         }
