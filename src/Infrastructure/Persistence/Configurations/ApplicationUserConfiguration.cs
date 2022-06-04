@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace chief_schedule.Infrastructure.Persistence.Configurations;
 
-public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
+public class ApplicationUserConfiguration : IEntityTypeConfiguration<DomainUser>
 {
-    public void Configure(EntityTypeBuilder<ApplicationUser> builder)
+    public void Configure(EntityTypeBuilder<DomainUser> builder)
     {
         builder
             .HasMany(u => u.Projects)
@@ -16,6 +16,6 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
         builder
             .HasMany(u => u.ManagedProjects)
             .WithOne(p => p.Manager)
-            .HasForeignKey(p => p.ManagerId);
+            .HasForeignKey("ManagerId");
     }
 }

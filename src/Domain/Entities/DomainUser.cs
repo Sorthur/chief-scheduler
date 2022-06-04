@@ -3,8 +3,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace chief_schedule.Domain.Entities;
 
-public class ApplicationUser : IdentityUser, IAuditableEntity
+public class DomainUser : IAuditableEntity
 {
+    public Guid Id { get; set; }
+    [Required]
+    [MaxLength(100)]
+    public string ApplicationUserId { get; set; }
     [MaxLength(100)]
     public string? Name { get; set; }
     [MaxLength(100)]
