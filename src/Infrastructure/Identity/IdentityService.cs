@@ -73,7 +73,6 @@ public class IdentityService : IIdentityService
         var result = await _authorizationService.AuthorizeAsync(principal, policyName);
 
         return result.Succeeded;
-        throw new NotImplementedException();
     }
 
     public async Task<JwtResponse?> AuthorizeJwtAsync(LoginModel loginModel)
@@ -84,10 +83,10 @@ public class IdentityService : IIdentityService
             var userRoles = await _userManager.GetRolesAsync(user);
 
             var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
 
             foreach (var userRole in userRoles)
             {
@@ -96,12 +95,9 @@ public class IdentityService : IIdentityService
 
             var token = GetToken(authClaims);
 
-            var tmpJwt = new JwtSecurityTokenHandler();
-            var tmp = tmpJwt.WriteToken(token);
-
             return new JwtResponse
             {
-                Token = tmp,
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Expiration = token.ValidTo
             };
         }
@@ -111,12 +107,12 @@ public class IdentityService : IIdentityService
 
     private JwtSecurityToken GetToken(List<Claim> authClaims)
     {
-        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("fqthberwigbhruieoltoafgnbdtriutsglorueihgdfgkjhdgijhdfgfddfdfjdd"));
+        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
         var token = new JwtSecurityToken(
-            issuer: "_configuration",//["JWT:ValidIssuer"],
-            audience: "_configuration",//["JWT:ValidAudience"],
-            expires: DateTime.Now.AddHours(3),
+            issuer: _configuration["JWT:ValidIssuer"],
+            audience: _configuration["JWT:ValidAudience"],
+            expires: DateTime.Now.AddHours(Int32.Parse(_configuration["JWT:Expiration"])),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
             );
