@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenComponent } from './token/token.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,14 @@ import { TokenComponent } from './token/token.component';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     FontAwesomeModule,
     HttpClientModule,
+    JwtModule.forRoot({ // todo configuration - jwtOptionsFactory
+      config: {
+        tokenGetter: () => localStorage.getItem('token'),
+        skipWhenExpired: true,
+        allowedDomains: ["*"],
+        disallowedRoutes: [""]
+      }
+    }),
     FormsModule,
     ApiAuthorizationModule,
     AppRoutingModule,
