@@ -17,6 +17,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenComponent } from './token/token.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AppSettings } from 'src/models/app-settings';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { JwtModule } from '@auth0/angular-jwt';
     HttpClientModule,
     JwtModule.forRoot({ // todo configuration - jwtOptionsFactory
       config: {
-        tokenGetter: () => localStorage.getItem('token'),
+        tokenGetter: () => localStorage.getItem(AppSettings.AUTH_TOKEN),
         skipWhenExpired: true,
         allowedDomains: ["*"],
         disallowedRoutes: [""]
