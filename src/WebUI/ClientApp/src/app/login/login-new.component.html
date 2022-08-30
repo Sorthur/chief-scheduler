@@ -1,0 +1,10 @@
+<form [formGroup]="form" (ngSubmit)="login()">
+    <label for="login">Login: </label>
+    <input id="login" type="text" formControlName="login">
+
+    <label for="password">Password: </label>
+    <input id="password" type="password" formControlName="password">
+
+    <div *ngIf="shouldDisplayFormError()">todo: translation - form cannot be empty</div>
+    <button>save</button>
+</form>
