@@ -3,13 +3,19 @@
 </div>
 <ng-template #formTemplate>
     <form [formGroup]="form" (ngSubmit)="login()">
-        <label for="login">Login: </label>
-        <input id="login" type="text" formControlName="login">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="login">Login: </label>
+                <input class="form-control" id="login" type="text" formControlName="login">
+            </div>
 
-        <label for="password">Password: </label>
-        <input id="password" type="password" formControlName="password">
+            <div class="form-group">
+                <label for="password">Password: </label>
+                <input class="form-control" id="password" type="password" formControlName="password">
+            </div>
 
-        <button>save</button>
+            <button class="btn btn-primary">Login</button>
+        </div>
     </form>
 </ng-template>
 <div *ngIf="shouldDisplayFormError()">todo: translation - form cannot be empty</div>
