@@ -1,4 +1,5 @@
-﻿using chief_schedule.Domain.Entities;
+﻿using System.Reflection;
+using chief_schedule.Domain.Entities;
 using chief_schedule.Domain.ValueObjects;
 using chief_schedule.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -9,8 +10,24 @@ public static class ApplicationDbContextSeed
 {
     public static async Task SeedDefaultUserAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
+        await SeedRoles(roleManager);
         await SeedAdministratorUser(userManager, roleManager);
         await SeedWorkerUser(userManager, roleManager);
+    }
+
+    private static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
+    {
+        var roles = typeof(RoleName).GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy)
+                        .Select(filedInfo => new IdentityRole(filedInfo.GetValue(null)!.ToString()))
+                        .ToList();
+
+        foreach (var role in roles)
+        {
+            if (roleManager.Roles.All(r => r.Name != role.Name))
+            {
+                await roleManager.CreateAsync(role);
+            }
+        }
     }
 
     private static async Task SeedAdministratorUser(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
@@ -22,12 +39,12 @@ public static class ApplicationDbContextSeed
             await roleManager.CreateAsync(administratorRole);
         }
 
-        var administrator = new ApplicationUser {UserName = "administrator", Email = "administrator@localhost"};
+        var administrator = new ApplicationUser { UserName = "administrator", Email = "administrator@localhost" };
 
         if (userManager.Users.All(u => u.UserName != administrator.UserName))
         {
             await userManager.CreateAsync(administrator, "ASDqwe123");
-            await userManager.AddToRolesAsync(administrator, new[] {administratorRole.Name});
+            await userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
         }
     }
 
@@ -40,12 +57,12 @@ public static class ApplicationDbContextSeed
             await roleManager.CreateAsync(workerRole);
         }
 
-        var administrator = new ApplicationUser {UserName = "user", Email = "user@localhost"};
+        var administrator = new ApplicationUser { UserName = "user", Email = "user@localhost" };
 
         if (userManager.Users.All(u => u.UserName != administrator.UserName))
         {
             await userManager.CreateAsync(administrator, "ASDqwe123");
-            await userManager.AddToRolesAsync(administrator, new[] {workerRole.Name});
+            await userManager.AddToRolesAsync(administrator, new[] { workerRole.Name });
         }
     }
 
