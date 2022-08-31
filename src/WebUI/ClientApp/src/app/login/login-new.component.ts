@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthorizeService } from 'src/api-authorization/authorize.service';
+import { AuthorizeNewService } from 'src/api-authorization/authorize-new.service';
+import { LoginModel } from 'src/models/login-model';
+import { take } from 'rxjs/operators'
+import { LoginResponse } from 'src/api-authorization/login-response';
 
 @Component({
   selector: 'app-login-new',
@@ -10,8 +13,10 @@ import { AuthorizeService } from 'src/api-authorization/authorize.service';
 export class LoginNewComponent implements OnInit {
 
   form: FormGroup;
+  errorMessage: string = null;
+  loaderVisible = false;
 
-  constructor(private authService: AuthorizeService) { }
+  constructor(private authService: AuthorizeNewService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -23,8 +28,19 @@ export class LoginNewComponent implements OnInit {
   login(): void {
     console.warn(this.form.value)
     if (!this.isFormValid()) return;
+    this.loaderVisible = true;
+    this.errorMessage = null;
 
-    this.authService.login(); //todo
+    this.authService.login(new LoginModel(this.form.value['login'], this.form.value['password']))
+      .pipe(take(1))
+      .subscribe((response: LoginResponse) => {
+        this.loaderVisible = false;
+        if (response.succesful) {
+          // redirect or success message
+        } else {
+          this.errorMessage = response.message;
+        }
+      });
   }
 
   shouldDisplayFormError(): boolean {

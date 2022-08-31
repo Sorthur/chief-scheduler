@@ -1,10 +1,16 @@
-<form [formGroup]="form" (ngSubmit)="login()">
-    <label for="login">Login: </label>
-    <input id="login" type="text" formControlName="login">
+<div *ngIf="loaderVisible;else formTemplate" class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+</div>
+<ng-template #formTemplate>
+    <form [formGroup]="form" (ngSubmit)="login()">
+        <label for="login">Login: </label>
+        <input id="login" type="text" formControlName="login">
 
-    <label for="password">Password: </label>
-    <input id="password" type="password" formControlName="password">
+        <label for="password">Password: </label>
+        <input id="password" type="password" formControlName="password">
 
-    <div *ngIf="shouldDisplayFormError()">todo: translation - form cannot be empty</div>
-    <button>save</button>
-</form>
+        <button>save</button>
+    </form>
+</ng-template>
+<div *ngIf="shouldDisplayFormError()">todo: translation - form cannot be empty</div>
+<div *ngIf="errorMessage">{{errorMessage}}</div>
