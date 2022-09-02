@@ -1,5 +1,7 @@
 using chief_schedule.Application.Authentication.Models;
 using chief_schedule.Application.Common.Interfaces;
+using chief_schedule.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace chief_schedule.WebUI.Controllers;
@@ -22,4 +24,8 @@ public class AuthController : ApiControllerBase
             ? Ok(token)
             : BadRequest("Bad login or password");
     }
+
+    [HttpPost("register-worker")]
+    [Authorize(Roles = $"{RoleName.MANAGER},{RoleName.ADMINISTRATOR}")]
+    public async Task<IActionResult> RegisterWorker([FromBody] RegisterWorkerCommand request) => Ok(Mediator.Send(request));
 }
