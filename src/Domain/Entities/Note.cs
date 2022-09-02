@@ -6,7 +6,7 @@ public class Note : AuditableEntity
 {
     public Guid Id { get; set; }
     public Project? Project { get; set; }
-    public ApplicationUser? Author { get; set; }
+    public DomainUser? Author { get; set; }
     [MaxLength(100)]
     public string? Title { get; set; }
     [MaxLength(500)]
