@@ -16,18 +16,21 @@ public class IdentityService : IIdentityService
 {
     private readonly IConfiguration _configuration;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly IAuthorizationService _authorizationService;
 
     public IdentityService(
         IConfiguration configuration,
         UserManager<ApplicationUser> userManager,
+        RoleManager<IdentityRole> roleManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService
         )
     {
         _configuration = configuration;
         _userManager = userManager;
+        _roleManager = roleManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         _authorizationService = authorizationService;
     }
@@ -51,6 +54,21 @@ public class IdentityService : IIdentityService
 
         return (result.ToApplicationResult(), user.Id);
     }
+
+    public async Task<(Result result, string userId)> CreateWorkerAsync(RegisterModel model)
+    {
+        var user = new ApplicationUser
+        {
+            UserName = model.Username,
+            Email = model.Email
+        };
+
+        var result = await _userManager.CreateAsync(user, model.Password);
+        await _userManager.AddToRoleAsync(user, RoleName.WORKER);
+
+        return (result.ToApplicationResult(), user.Id);
+    }
+
 
     public async Task<bool> IsInRoleAsync(string userId, string role)
     {

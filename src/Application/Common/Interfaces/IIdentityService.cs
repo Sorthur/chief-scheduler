@@ -14,5 +14,7 @@ public interface IIdentityService
 
     Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password);
 
+    Task<(Result result, string userId)> CreateWorkerAsync(RegisterModel model);
+
     Task<Result> DeleteUserAsync(string userId);
 }
