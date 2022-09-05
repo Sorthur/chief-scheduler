@@ -1,18 +1,17 @@
 ﻿using System.Text;
 using chief_schedule.Application.Common.Interfaces;
-using chief_schedule.Domain.Entities;
+using chief_schedule.Application.Common.Interfaces.Repositories;
 using chief_schedule.Infrastructure.Files;
 using chief_schedule.Infrastructure.Identity;
 using chief_schedule.Infrastructure.Persistence;
+using chief_schedule.Infrastructure.Repositories;
 using chief_schedule.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace chief_schedule.Infrastructure;
 
@@ -81,6 +80,9 @@ public static class DependencyInjection
 
         services.AddAuthorization(options =>
             options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
+
+        // Repositories
+        services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
         return services;
     }

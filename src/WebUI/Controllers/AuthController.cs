@@ -27,5 +27,5 @@ public class AuthController : ApiControllerBase
 
     [HttpPost("register-worker")]
     [Authorize(Roles = $"{RoleName.MANAGER},{RoleName.ADMINISTRATOR}")]
-    public async Task<IActionResult> RegisterWorker([FromBody] RegisterWorkerCommand request) => Ok(Mediator.Send(request));
+    public async Task<IActionResult> RegisterWorker([FromBody] RegisterWorkerCommand request) => Ok(await Mediator.Send(request));
 }
