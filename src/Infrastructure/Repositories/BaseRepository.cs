@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace chief_schedule.Infrastructure.Repositories;
 
-public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
+public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
-    private readonly ApplicationDbContext _context;
-    private DbSet<TEntity> _entities;
+    protected readonly ApplicationDbContext _context;
+    protected DbSet<TEntity> _entities;
 
     public BaseRepository(ApplicationDbContext context)
     {

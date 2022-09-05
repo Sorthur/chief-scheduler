@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace chief_schedule.Application.Common.Interfaces.Repositories;
 
-public interface IBaseRepository<TEntity>
+public interface IBaseRepository<TEntity> where TEntity : class
 {
     public IQueryable<TEntity> GetAll();
 

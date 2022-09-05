@@ -1,5 +1,7 @@
 using chief_schedule.Application.Authentication.Models;
 using chief_schedule.Application.Common.Interfaces;
+using chief_schedule.Application.Common.Interfaces.Repositories;
+using chief_schedule.Domain.Entities;
 using MediatR;
 
 public record RegisterWorkerCommand(RegisterModel model) : IRequest;

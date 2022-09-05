@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using chief_schedule.Application.Common.Interfaces;
 using chief_schedule.Application.Common.Interfaces.Repositories;
+using chief_schedule.Domain.Entities;
 using chief_schedule.Infrastructure.Files;
 using chief_schedule.Infrastructure.Identity;
 using chief_schedule.Infrastructure.Persistence;
@@ -82,7 +83,7 @@ public static class DependencyInjection
             options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
 
         // Repositories
-        services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+        services.AddScoped<IDomainUserRepository, DomainUserRepository>();
 
         return services;
     }
