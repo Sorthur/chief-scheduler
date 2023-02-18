@@ -37,7 +37,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         return await _entities.FirstOrDefaultAsync(predicate);
     }
 
-    public async Task CreateAsync(TEntity entity)
+    public async Task AddAsync(TEntity entity)
     {
         await _entities.AddAsync(entity);
     }

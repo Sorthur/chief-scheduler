@@ -12,7 +12,7 @@ public interface IBaseRepository<TEntity> where TEntity : class
 
     public Task<TEntity?> GetFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
 
-    public Task CreateAsync(TEntity entity);
+    public Task AddAsync(TEntity entity);
 
     public Task DeleteByIdAsync(int id);
 

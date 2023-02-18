@@ -30,7 +30,8 @@ public class RegisterWorkerCommandHandler : IRequestHandler<RegisterWorkerComman
             LastModified = DateTime.Now
         };
 
-        await _domainUserRepository.CreateAsync(newDomainUser);
+        await _domainUserRepository.AddAsync(newDomainUser);
+        await _domainUserRepository.SaveChangesAsync();
 
         // todo: sending mail with password
 
