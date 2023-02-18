@@ -26,6 +26,8 @@ public class RegisterWorkerCommandHandler : IRequestHandler<RegisterWorkerComman
         {
             Id = new(),
             ApplicationUserId = result.Result.userId,
+            Name = request.model.Name,
+            Surname = request.model.Surname,
             Created = DateTime.Now,
             LastModified = DateTime.Now
         };
