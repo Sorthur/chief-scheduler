@@ -48,8 +48,8 @@ public class Startup
             options.SuppressModelStateInvalidFilter = true);
 
         // In production, the Angular files will be served from this directory
-        services.AddSpaStaticFiles(configuration =>
-            configuration.RootPath = "ClientApp/dist");
+        //services.AddSpaStaticFiles(configuration =>
+        //    configuration.RootPath = "ClientApp/dist");
 
         services.AddOpenApiDocument(configure =>
         {
@@ -86,7 +86,7 @@ public class Startup
         app.UseStaticFiles();
         if (!env.IsDevelopment())
         {
-            app.UseSpaStaticFiles();
+            //app.UseSpaStaticFiles();
         }
 
         app.UseSwaggerUi3(settings =>
@@ -108,18 +108,18 @@ public class Startup
             endpoints.MapRazorPages();
         });
 
-        app.UseSpa(spa =>
-        {
-            // To learn more about options for serving an Angular SPA from ASP.NET Core,
-            // see https://go.microsoft.com/fwlink/?linkid=864501
+        //app.UseSpa(spa =>
+        //{
+        //    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+        //    // see https://go.microsoft.com/fwlink/?linkid=864501
 
-            spa.Options.SourcePath = "ClientApp";
+        //    spa.Options.SourcePath = "ClientApp";
 
-            if (env.IsDevelopment())
-            {
-                spa.UseAngularCliServer(npmScript: "start");
-                spa.UseProxyToSpaDevelopmentServer(Configuration["SpaBaseUrl"] ?? "http://localhost:4200");
-            }
-        });
+        //    if (env.IsDevelopment())
+        //    {
+        //        spa.UseAngularCliServer(npmScript: "start");
+        //        spa.UseProxyToSpaDevelopmentServer(Configuration["SpaBaseUrl"] ?? "http://localhost:4200");
+        //    }
+        //});
     }
 }
