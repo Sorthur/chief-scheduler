@@ -4,6 +4,7 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HomeComponent } from './home/home.component';
+import { LoginNewComponent } from './login/login-new.component';
 import { TodoComponent } from './todo/todo.component';
 import { TokenComponent } from './token/token.component';
 
@@ -13,11 +14,12 @@ export const routes: Routes = [
   { path: 'fetch-data', component: FetchDataComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'todo', component: TodoComponent, canActivate: [AuthorizeGuard] },
-  { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard] }
+  { path: 'token', component: TokenComponent, canActivate: [AuthorizeGuard] },
+  { path: 'login', component: LoginNewComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

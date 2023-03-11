@@ -4,6 +4,9 @@
 # OS-Specific
 .DS_Store
 
+# Visual Studio Code
+*.vscode
+
 # User-specific files
 *.suo
 *.user
