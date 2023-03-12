@@ -1,4 +1,5 @@
 ﻿using chief_schedule.Application.Common.Interfaces;
+using chief_schedule.Domain.Entities;
 using chief_schedule.Infrastructure.Identity;
 using chief_schedule.Infrastructure.Persistence;
 using chief_schedule.WebUI;

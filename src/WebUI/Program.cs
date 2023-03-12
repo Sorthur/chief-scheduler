@@ -1,3 +1,4 @@
+using chief_schedule.Domain.Entities;
 using chief_schedule.Infrastructure.Identity;
 using chief_schedule.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
